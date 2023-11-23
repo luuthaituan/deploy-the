@@ -16,10 +16,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $created_at
  * @property string $updated_at
  * @method static find($id)
- * @method static \Illuminate\Database\Query\Builder where($column, $operator = null, $value = null, $boolean = 'and')
- * @method static \Illuminate\Database\Query\Builder whereNotIn($column, $values, $boolean = 'and')
- * @method static \Illuminate\Database\Query\Builder join($table, $first, $operator = null, $second = null, $type = 'inner', $where = false)
- * @method static \Illuminate\Database\Query\Builder leftJoin($table, $first, $operator = null, $second = null)
+ * @method static \Illuminate\Database\Eloquent\Builder where($column, $operator = null, $value = null, $boolean = 'and')
+ * @method static \Illuminate\Database\Eloquent\Builder whereNotIn($column, $values, $boolean = 'and')
+ * @method static \Illuminate\Database\Eloquent\Builder join($table, $first, $operator = null, $second = null, $type = 'inner', $where = false)
+ * @method static \Illuminate\Database\Eloquent\Builder leftJoin($table, $first, $operator = null, $second = null)
  * @method static bool insert(array $values)
  */
 class Resource extends Model

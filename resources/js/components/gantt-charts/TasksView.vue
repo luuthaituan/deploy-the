@@ -7,7 +7,7 @@ import {SvelteGantt} from 'svelte-gantt';
 import defaults from "./config";
 import sha256 from 'crypto-js/sha256';
 import _ from 'lodash';
-import moment from "moment";
+import dayjs from "dayjs";
 
 export default {
     name: 'gantt-chart-tasks-view',
@@ -16,8 +16,8 @@ export default {
         let gantt;
 
         const options = _.defaultsDeep({
-            from: moment().startOf('month').valueOf(),
-            to: moment().endOf('month').valueOf(),
+            from: dayjs().startOf('month').valueOf(),
+            to: dayjs().endOf('month').valueOf(),
             rows: getRows(props.tasks),
             tasks: getTasks(props.tasks),
             headers: [
@@ -107,52 +107,41 @@ export default {
                     return;
                 }
 
-                let startDate = moment(task.start_date).startOf('day');
-                if (startDate.day() === 0) {
-                    startDate.add(1, "days");
-                } else if (startDate.day() === 6) {
-                    startDate.add(2, "days");
-                }
+                _.each(task.children, function (child) {
+                    let startDate = dayjs(child.start_date).startOf('day');
+                    let endDate = dayjs(child.end_date).endOf('day');
 
-                let endDate = _.cloneDeep(startDate).endOf('day');
-                let count = 0;
-
-                while (count < task.duration - 1) {
-                    endDate = endDate.add(1, "days");
-                    if (endDate.day() !== 0 && endDate.day() !== 6) {
-                        count++;
-                    }
-                }
-
-                let html = `<div class="task-assignees"><section class="avatars-group pa-2 stacked">`;
-                _.each(task.assignees, (resource) => {
-                    let avatar = resource.avatar ? resource.avatar : `https://gravatar.com/avatar/${sha256(resource.email).toString()}`;
-                    html += `<div class="avatars-group__item">
-                        <div class="v-avatar v-avatar--density-default v-avatar--size-small">
-                            <div class="v-responsive v-img">
-                                <img class="v-img__img v-img__img--cover" src="${avatar}" title="${`${resource.name} (${resource.account})`}" />
+                    let html = `<div class="task-assignees"><section class="avatars-group pa-2 stacked">`;
+                    _.each(child.assignees, (resource) => {
+                        let avatar = resource.avatar ? resource.avatar : `https://gravatar.com/avatar/${sha256(resource.email).toString()}`;
+                        html += `<div class="avatars-group__item">
+                            <div class="v-avatar v-avatar--density-default v-avatar--size-small">
+                                <div class="v-responsive v-img">
+                                    <img class="v-img__img v-img__img--cover" src="${avatar}" title="${`${resource.name} (${resource.account})`}" />
+                                </div>
                             </div>
-                        </div>
-                    </div>`;
-                });
-                html += '</section></div>';
-                html += `<div class="task-text">`;
-                if (task.jira_id) {
-                    html += `<div class="task-label"><a target="_blank" href="https://jira.smartosc.com/browse/${task.jira_id}" title="${task.title}">${task.title}</a></div>`
-                } else {
-                    html += `<div class="task-label">${task.title}</div>`;
-                }
-                html += `</div>`;
+                        </div>`;
+                    });
+                    html += '</section></div>';
+                    html += `<div class="task-text">`;
+                    if (task.jira_id) {
+                        html += `<div class="task-label"><a target="_blank" href="https://jira.smartosc.com/browse/${task.jira_id}" title="${task.title}">${task.title}</a></div>`
+                    } else {
+                        html += `<div class="task-label">${task.title}</div>`;
+                    }
+                    html += `</div>`;
 
-                data.push({
-                    real_id: task.id,
-                    id: `task_${task.id}`,
-                    resourceId: `task_${task.id}`,
-                    amountDone: task.progress,
-                    from: startDate.valueOf(),
-                    to: endDate.valueOf(),
-                    enableDragging: false,
-                    html: html,
+                    data.push({
+                        real_id: task.id,
+                        id: `task_${child.id}`,
+                        resourceId: `task_${task.id}`,
+                        amountDone: child.progress,
+                        from: startDate.valueOf(),
+                        to: endDate.valueOf(),
+                        enableDragging: false,
+                        html: html,
+                        classes: `task-${child.title}`
+                    });
                 });
             });
 

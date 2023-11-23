@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ config('app.name', 'Project Manager Tools') }}</title>
+        <title>{{ config('app.name', 'Do.pmS') }}</title>
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.bunny.net">

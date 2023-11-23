@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
  * @property string $created_at
  * @property string $updated_at
  * @method static find($id)
- * @method static \Illuminate\Database\Query\Builder where($column, $operator = null, $value = null, $boolean = 'and')
+ * @method static \Illuminate\Database\Eloquent\Builder where($column, $operator = null, $value = null, $boolean = 'and')
  */
 class Project extends Model
 {
@@ -27,6 +27,16 @@ class Project extends Model
         'created_at' => 'datetime:F j, Y H:i:s',
         'updated_at' => 'datetime:F j, Y H:i:s',
     ];
+
+    /**
+     * @param string $identifier
+     * @param string[] $columns
+     * @return Model|static|null
+     */
+    public static function findByIdentifier(string $identifier, array $columns = ['*']): Model|static|null
+    {
+        return static::where('identifier', '=', $identifier)->first($columns);
+    }
 
     /**
      * Get the comments for the blog post.

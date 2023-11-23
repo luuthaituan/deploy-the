@@ -19,6 +19,7 @@
                     <v-list-item :to="{ name: 'dashboard' }" prepend-icon="mdi-view-dashboard" title="Dashboard" value="dashboard"></v-list-item>
                     <v-list-item :to="{ name: 'resources' }" prepend-icon="mdi-account-group-outline" title="Resources" value="resource"></v-list-item>
                     <v-list-item :to="{ name: 'projects' }" prepend-icon="mdi-folder-multiple" title="Projects" value="project"></v-list-item>
+                    <v-list-item :to="{ name: 'holidays' }" prepend-icon="mdi-calendar-edit" title="Holidays" value="holiday"></v-list-item>
                 </v-list>
 
                 <template v-slot:append>

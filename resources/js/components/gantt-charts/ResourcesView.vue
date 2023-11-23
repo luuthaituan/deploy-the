@@ -7,7 +7,9 @@ import {SvelteGantt} from 'svelte-gantt';
 import defaults from "./config";
 import sha256 from 'crypto-js/sha256';
 import _ from 'lodash';
-import moment from "moment";
+import dayjs from "dayjs";
+import isoWeek from "dayjs/plugin/isoWeek";
+dayjs.extend(isoWeek);
 
 export default {
     name: 'gantt-chart-resources-view',
@@ -16,8 +18,8 @@ export default {
         let gantt;
 
         const options = _.defaultsDeep({
-            from: moment().startOf('isoWeek').valueOf(),
-            to: moment().add(1, 'week').endOf('isoWeek').valueOf(),
+            from: dayjs().startOf('isoWeek').valueOf(),
+            to: dayjs().add(1, 'week').endOf('isoWeek').endOf('day').valueOf(),
             rows: getRows(props.allocated_resources),
             tasks: getTasks(props.tasks),
             headers: [
@@ -64,7 +66,7 @@ export default {
         });
 
         watch(props.allocated_resources, (newValue) => {
-            gantt.set({
+            gantt.$set({
                 rows: getRows(newValue)
             });
         });
@@ -103,49 +105,38 @@ export default {
             let data = [];
 
             _.each(tasks, (task) => {
-                if (task === undefined) {
+                if (task === undefined || task.children.length === 0) {
                     return;
                 }
 
-                let startDate = moment(task.start_date).startOf('day');
-                if (startDate.day() === 0) {
-                    startDate.add(1, "days");
-                } else if (startDate.day() === 6) {
-                    startDate.add(2, "days");
-                }
+                _.each(task.children, function (child) {
+                    let startDate = dayjs(child.start_date).startOf('day');
+                    let endDate = dayjs(child.end_date).endOf('day');
 
-                let endDate = _.cloneDeep(startDate).endOf('day');
-                let count = 0;
+                    _.each(child.assignees, function (assignee) {
+                        let html = `<div class="task-text">`;
+                        if (task.jira_id) {
+                            html += `<div class="task-label"><a target="_blank" href="https://jira.smartosc.com/browse/${task.jira_id}" title="${task.title}">${task.title}</a></div>`
+                        } else {
+                            html += `<div class="task-label">${task.title}</div>`;
+                        }
 
-                while (count < task.duration - 1) {
-                    endDate = endDate.add(1, "days");
-                    if (endDate.day() !== 0 && endDate.day() !== 6) {
-                        count++;
-                    }
-                }
+                        if (task.status) {
+                            html += `<div class="task-description">Status: ${task.status}</div>`;
+                        }
+                        html += '</div>';
 
-                _.each(task.assignees, function (assignee) {
-                    let html = `<div class="task-text">`;
-                    if (task.jira_id) {
-                        html += `<div class="task-label"><a target="_blank" href="https://jira.smartosc.com/browse/${task.jira_id}" title="${task.title}">${task.title}</a></div>`
-                    } else {
-                        html += `<div class="task-label">${task.title}</div>`;
-                    }
-
-                    if (task.status) {
-                        html += `<div class="task-description">Status: ${task.status}</div>`;
-                    }
-                    html += '</div>';
-
-                    data.push({
-                        real_id: task.id,
-                        id: `task_${assignee.id}_${task.id}`,
-                        resourceId: `resource_${assignee.id}`,
-                        amountDone: task.progress,
-                        from: startDate.valueOf(),
-                        to: endDate.valueOf(),
-                        enableDragging: false,
-                        html: html,
+                        data.push({
+                            real_id: task.id,
+                            id: `task_${assignee.id}_${child.id}`,
+                            resourceId: `resource_${assignee.id}`,
+                            amountDone: child.progress,
+                            from: startDate.valueOf(),
+                            to: endDate.valueOf(),
+                            enableDragging: false,
+                            html: html,
+                            classes: `task-${child.title}`
+                        });
                     });
                 });
             });

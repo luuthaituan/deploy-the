@@ -2,13 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Project;
+use App\Interfaces\ProjectRepositoryInterface;
+use App\Interfaces\TaskRepositoryInterface;
 use App\Models\Resource;
 use App\Models\Task;
 use Illuminate\Http\JsonResponse;
 
 class GanttController extends Controller
 {
+    /**
+     * @var ProjectRepositoryInterface
+     */
+    private ProjectRepositoryInterface $projectRepository;
+
+    /**
+     * @var TaskRepositoryInterface
+     */
+    private $taskRepository;
+
+    /**
+     * GanttController constructor
+     *
+     * @param ProjectRepositoryInterface $projectRepository
+     * @param TaskRepositoryInterface $taskRepository
+     */
+    public function __construct(
+        ProjectRepositoryInterface $projectRepository,
+        TaskRepositoryInterface $taskRepository
+    ) {
+        $this->projectRepository = $projectRepository;
+        $this->taskRepository = $taskRepository;
+    }
+
     /**
      * View project action
      *
@@ -17,12 +42,11 @@ class GanttController extends Controller
      */
     public function execute($project): JsonResponse
     {
-        $project = Project::where('identifier', $project)
-            ->first()
-        ;
+        $project = $this->projectRepository->findByIdentifier($project);
 
-        $tasks = Task::where('project_id', $project->id)
-            ->with(['assignees'])
+        $tasks = Task::addProjectFilter($project)
+            ->whereNull('parent_id')
+            ->with(['children.assignees'])
             ->get()
             ->keyBy('id')
         ;

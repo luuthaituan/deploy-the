@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\TaskRepositoryInterface;
 use App\Models\Task;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -12,27 +13,31 @@ use Illuminate\Support\Arr;
 class TaskController extends Controller
 {
     /**
+     * @var TaskRepositoryInterface
+     */
+    private TaskRepositoryInterface $taskRepository;
+
+    /**
+     * TaskController constructor.
+     *
+     * @param TaskRepositoryInterface $taskRepository
+     */
+    public function __construct(
+        TaskRepositoryInterface $taskRepository
+    ) {
+        $this->taskRepository = $taskRepository;
+    }
+
+    /**
      * Save task action
      *
      * @param Request $request
      * @return JsonResponse
+     * @throws \Exception
      */
     public function store(Request $request): JsonResponse
     {
-        $task = new Task();
-        $task->title = $request->title;
-        $task->jira_id = $request->jira_id;
-        $task->start_date = $request->start_date;
-        $task->duration = $request->duration;
-        $task->progress = $request->progress;
-        $task->project_id = $request->project_id;
-        $task->save();
-
-        foreach ($request->assignees as $resourceId) {
-            $task->assignees()->attach($resourceId);
-        }
-
-        return response()->json($task->with(['assignees'])->find($task->id));
+        return response()->json($this->taskRepository->save($request->toArray()));
     }
 
     /**
@@ -41,28 +46,14 @@ class TaskController extends Controller
      * @param $id
      * @param Request $request
      * @return JsonResponse
+     * @throws \Exception
      */
     public function update($id, Request $request): JsonResponse
     {
-        $task = Task::find($id);
-        $task->title = $request->title;
-        $task->jira_id = $request->jira_id;
-        $task->start_date = $request->start_date;
-        $task->duration = $request->duration;
-        $task->progress = $request->progress;
-        $task->save();
+        $data = $request->toArray();
+        $data['id'] = $id;
 
-        $task->assignees()->detach();
-        foreach ($request->assignees as $resource) {
-            $resourceId = $resource;
-            if (is_array($resource)) {
-                $resourceId = $resource['id'];
-            }
-
-            $task->assignees()->attach($resourceId);
-        }
-
-        return response()->json($task->with(['assignees'])->find($task->id));
+        return response()->json($this->taskRepository->save($data));
     }
 
     /**
@@ -73,8 +64,7 @@ class TaskController extends Controller
      */
     public function delete($id): JsonResponse
     {
-        $task = Task::find($id);
-        $task->delete();
+        $this->taskRepository->delete($id);
 
         return response()->json([
             "success" => true,

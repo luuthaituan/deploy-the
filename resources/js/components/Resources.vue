@@ -151,7 +151,7 @@ export default {
                 { key: 'email', title: 'Email', sortable: false },
                 { key: 'created_at', title: 'Created At' },
                 { key: 'updated_at', title: 'Updated At' },
-                { key: 'actions', title: 'Actions', sortable: false },
+                { key: 'actions', title: 'Actions', sortable: false, align: 'end' },
             ],
             resources: [],
             accountRules: [

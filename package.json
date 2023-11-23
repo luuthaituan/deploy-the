@@ -14,14 +14,15 @@
         "vite-plugin-vuetify": "^1.0.2"
     },
     "dependencies": {
+        "@date-io/dayjs": "^2.17.0",
         "axios": "^1.1.2",
         "crypto-js": "^4.2.0",
+        "dayjs": "^1.11.10",
         "lodash": "^4.17.21",
-        "moment": "^2.29.4",
         "svelte-gantt": "^4.2.1",
         "vue": "^3.2.37",
         "vue-router": "^4.2.5",
-        "vuetify": "^3.3.23",
+        "vuetify": "^3.4.1",
         "vuex": "^4.1.0",
         "vuex-persistedstate": "^4.1.0"
     }

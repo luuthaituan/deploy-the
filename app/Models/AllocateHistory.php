@@ -13,9 +13,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $email
  * @method static find($id)
- * @method static \Illuminate\Database\Query\Builder where($column, $operator = null, $value = null, $boolean = 'and')
- * @method static \Illuminate\Database\Query\Builder whereIn($column, $values, $boolean = 'and', $not = false)
- * @method static \Illuminate\Database\Query\Builder whereNull($columns, $boolean = 'and', $not = false)
+ * @method static \Illuminate\Database\Eloquent\Builder where($column, $operator = null, $value = null, $boolean = 'and')
+ * @method static \Illuminate\Database\Eloquent\Builder whereIn($column, $values, $boolean = 'and', $not = false)
+ * @method static \Illuminate\Database\Eloquent\Builder whereNull($columns, $boolean = 'and', $not = false)
  * @method static int delete($id = null)
  * @method static bool insert(array $values)
  */

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AllocationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GanttController;
+use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\TaskController;
@@ -50,4 +51,8 @@ Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::delete('tasks/{id}', [TaskController::class, 'delete']);
     Route::put('tasks/{id}', [TaskController::class, 'update']);
     Route::put('tasks/sync/{project_id}', [TaskController::class, 'syncFromJira']);
+
+    // Holiday APIs
+    Route::get('holidays', [HolidayController::class, 'index']);
+    Route::post('holidays', [HolidayController::class, 'store']);
 });

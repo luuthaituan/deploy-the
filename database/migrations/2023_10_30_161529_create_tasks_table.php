@@ -14,17 +14,17 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->string('title');
-            $table->string('jira_id')->nullable(true);
+            $table->string('jira_id')->nullable();
+            $table->dateTime('start_date')->nullable()->default(null);
             $table->integer('duration');
             $table->integer('progress');
-            $table->dateTime('start_date')->nullable()->default(null);
             $table->tinyInteger('is_renewed_plan')->default(0);
             $table->integer('project_id')->unsigned();
             $table->foreign('project_id')->references('id')->on('projects')
                 ->onDelete('cascade')
                 ->onUpdate('cascade')
             ;
-            $table->string('status')->nullable(true);
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

@@ -20,18 +20,13 @@ import { createApp } from 'vue';
 
 // Vuetify
 import { createVuetify } from 'vuetify';
-import * as components from 'vuetify/components';
-import * as directives from 'vuetify/directives';
-import * as labsComponents from 'vuetify/labs/components';
+import DayJsAdapter from '@date-io/dayjs';
 
 const vuetify = createVuetify({
-    components: {
-        ...components,
-        ...labsComponents,
+    date: {
+        adapter: DayJsAdapter,
     },
-    directives,
-})
-
+});
 const app = createApp({});
 app.use(Router);
 app.use(store);

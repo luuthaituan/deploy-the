@@ -39,7 +39,7 @@
         </template>
         <v-dialog
             v-model="newDialog"
-            max-width="500px"
+            max-width="600px"
             v-bind:no-click-animation="true"
             persistent
         >
@@ -55,7 +55,7 @@
                                 <v-text-field
                                     label="Title"
                                     v-model="editedItem.title"
-                                    :rules="titleRules"
+                                    :rules="rules.title"
                                     required
                                 ></v-text-field>
                             </v-row>
@@ -86,39 +86,66 @@
                                     <v-date-picker
                                         v-model="editedItem.start_date"
                                         @update:modelValue="startDateCalendar = false; formatStartDate()"
-                                        hide-actions
-                                        no-title
-                                        outlined
-                                        dense
-                                        hide-details
+                                        hide-header
                                     ></v-date-picker>
                                 </v-menu>
                             </v-row>
                             <v-row>
-                                <v-text-field
-                                    label="Duration"
-                                    v-model="editedItem.duration"
-                                    :rules="durationRules"
-                                ></v-text-field>
+                                <span class="text-subtitle-1">ETA</span>
                             </v-row>
-                            <v-row>
-                                <v-text-field
-                                    label="Progress"
-                                    v-model="editedItem.progress"
-                                    :rules="progressRules"
-                                ></v-text-field>
+                            <v-row v-for="(child, index) in editedItem.children">
+                                <v-row>
+                                    <v-col cols="12" sm="4">
+                                        <v-select
+                                            label="Type"
+                                            v-model="child.title"
+                                            :items="eta_types"
+                                            item-title="name"
+                                            item-value="id"
+                                            :rules="rules.type"
+                                        ></v-select>
+                                    </v-col>
+                                    <v-col cols="12" sm="2">
+                                        <v-text-field
+                                            label="Duration"
+                                            v-model="child.duration"
+                                            :rules="rules.duration"
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="2">
+                                        <v-text-field
+                                            label="Progress"
+                                            v-model="child.progress"
+                                            :rules="rules.progress"
+                                        ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" sm="3">
+                                        <v-select
+                                            label="Assignee(s)"
+                                            v-model="child.assignees"
+                                            :items="getAllocatedResources()"
+                                            :item-props="resourceProps"
+                                            :rules="rules.assignees"
+                                            item-title="name"
+                                            item-value="id"
+                                            multiple
+                                            chips
+                                            required
+                                        ></v-select>
+                                    </v-col>
+                                    <v-col cols="12" sm="1">
+                                        <v-icon
+                                            size="small"
+                                            icon="mdi-delete"
+                                            @click="removeETA(index)"
+                                        ></v-icon>
+                                    </v-col>
+                                </v-row>
                             </v-row>
-                            <v-row>
-                                <v-select
-                                    label="Assignee(s)"
-                                    v-model="editedItem.assignees"
-                                    :items="getAllocatedResources()"
-                                    :item-props="resourceProps"
-                                    item-title="name"
-                                    item-value="id"
-                                    multiple
-                                    chips
-                                ></v-select>
+                            <v-row class="text-center">
+                                <v-col>
+                                    <v-btn icon="mdi-plus" size="small" @click="addETA"></v-btn>
+                                </v-col>
                             </v-row>
                         </v-container>
                     </v-form>
@@ -217,7 +244,7 @@ import {useRoute} from "vue-router";
 import ResourcesView from "./gantt-charts/ResourcesView.vue";
 import TasksView from "./gantt-charts/TasksView.vue";
 import _ from "lodash";
-import moment from "moment";
+import dayjs from "dayjs";
 
 export default {
     name: "project",
@@ -257,48 +284,80 @@ export default {
             valid: false,
             syncing: false,
             view_type: 'resources',
+            eta_types: [
+                {
+                    'id': 'conduct_brd',
+                    'name': 'Conduct BRD'
+                },
+                {
+                    'id': 'dev',
+                    'name': 'Develop'
+                },
+                {
+                    'id': 'test',
+                    'name': 'Test'
+                },
+            ],
             editedItem: {
                 id: 0,
                 title: '',
-                jira_id: '',
-                start_date: '',
-                assignees: [],
-                duration: 0,
-                progress: 0,
+                jira_id: null,
+                start_date: null,
+                children: [],
                 project_id: this.project.id,
             },
             defaultItem: {
                 id: 0,
                 title: '',
-                jira_id: '',
-                start_date: '',
-                assignees: [],
-                duration: 0,
-                progress: 0,
+                jira_id: null,
+                start_date: null,
+                children: [],
                 project_id: this.project.id,
             },
+            defaultETA: {
+                id: 0,
+                title: '',
+                duration: 0,
+                progress: 0,
+                assignees: [],
+            },
             allocateResources: [],
-            titleRules: [
-                (v) => !!v || 'Title is required',
-            ],
-            durationRules: [
-                (v) => /^[0-9]+$/.test(v) || 'Duration must be valid'
-            ],
-            progressRules: [
-                (v) => /^[0-9]+$/.test(v) || 'Progress must be valid'
-            ],
+            rules: {
+                title: [
+                    (v) => !!v || 'Title is required',
+                ],
+                duration: [
+                    (v) => /^[0-9]+$/.test(v) || 'Duration must be valid',
+                    (v) => v > 0 || 'Duration must be greater than 0',
+                ],
+                progress: [
+                    (v) => /^[0-9]+$/.test(v) || 'Progress must be valid',
+                ],
+                type: [
+                    (v) => v.length > 0 || 'Type is required',
+                ],
+                assignees: [
+                    (v) => v.length > 0 || 'Assignee(s) is required',
+                ]
+            },
         }
     },
     methods: {
         onTaskDblClick(task) {
-            this.edit(_.clone(this.tasks[task.real_id]));
+            this.edit(_.cloneDeep(this.tasks[task.real_id]));
+        },
+        addETA() {
+            this.editedItem.children.push(_.cloneDeep(this.defaultETA));
+        },
+        removeETA(index) {
+            this.editedItem.children.splice(index, 1);
         },
         formatStartDate() {
             if (!this.editedItem.start_date) {
                 return '';
             }
 
-            this.editedItem.start_date = moment(this.editedItem.start_date).format('YYYY-MM-DD');
+            this.editedItem.start_date = dayjs(this.editedItem.start_date).format('YYYY-MM-DD');
         },
         resourceProps (item) {
             return {
@@ -434,15 +493,31 @@ export default {
 
 .sg-task {
     border-radius: 6px !important;
-    background-color: rgb(7, 171, 160) !important;
+    background-color: rgb(241, 137, 45) !important;
     background-size: auto auto !important;
     background-image: repeating-linear-gradient(135deg, transparent, transparent 10px, rgba(255,255,255,0.15) 10px, rgba(255,255,255,0.15) 20px) !important;
 }
 
+.sg-task.task-conduct_brd {
+    background-color: #e74c3c !important;
+}
+
+.sg-task.task-test {
+    background-color: rgb(14, 172, 81) !important;
+}
+
 .sg-task:hover {
-    background-color: rgb(7, 171, 160) !important;
+    background-color: rgb(241, 137, 45) !important;
     background-size: auto auto !important;
     background-image: repeating-linear-gradient(135deg, transparent, transparent 10px, rgba(255,255,255,0.15) 10px, rgba(255,255,255,0.15) 20px) !important;
+}
+
+.sg-task.task-conduct_brd:hover {
+    background-color: #e74c3c !important;
+}
+
+.sg-task.task-test:hover {
+    background-color: rgb(14, 172, 81) !important;
 }
 
 .sg-task.sg-task-selected {
@@ -450,8 +525,16 @@ export default {
 }
 
 .sg-task-background {
-    background-color: rgb(7, 171, 160) !important;
+    background-color: rgb(241, 137, 45) !important;
     border-radius: 6px;
+}
+
+.sg-task.task-conduct_brd .sg-task-background {
+    background-color: #e74c3c !important;
+}
+
+.sg-task.task-test .sg-task-background {
+    background-color: rgb(14, 172, 81) !important;
 }
 
 .tasks-view .sg-task-content {

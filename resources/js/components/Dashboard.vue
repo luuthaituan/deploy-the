@@ -8,7 +8,7 @@
                 <v-sheet
                     class="text-center ma-2"
                     elevation="4"
-                    height="250"
+                    min-height="250"
                     rounded
                 >
                     <v-card-text class="text-h6">Pending Tasks</v-card-text>
@@ -49,7 +49,7 @@
                 <v-sheet
                     class="text-center ma-2"
                     elevation="4"
-                    height="250"
+                    min-height="250"
                     rounded
                 >
                     <v-card-text class="text-h6">Lowest Workload</v-card-text>

@@ -18,6 +18,7 @@ const Dashboard = () => import('../components/Dashboard.vue');
 const Projects = () => import('../components/Projects.vue');
 const Project = () => import('../components/Project.vue');
 const Resources = () => import("../components/Resources.vue");
+const Holidays = () => import("../components/Holidays.vue");
 /* User Components */
 
 const routes = [
@@ -76,6 +77,14 @@ const routes = [
                 component: Resources,
                 meta: {
                     title: 'Resources'
+                }
+            },
+            {
+                name: "holidays",
+                path: '/holidays',
+                component: Holidays,
+                meta: {
+                    title: 'Holidays'
                 }
             },
         ]
