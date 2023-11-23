@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/your-username/your-laravel-project.git'
+                git 'https://github.com/luuthaituan/deploy-the.git'
             }
         }
 
@@ -23,7 +23,7 @@ pipeline {
 stage('Deploy') {
     steps {
         sh """
-        cd /path/to/your/project
+        cd C:\Users\IT\Documents\deploy-the
         git pull
         composer install --no-dev
         php artisan migrate --force
