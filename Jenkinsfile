@@ -4,9 +4,9 @@ pipeline {
         stage("Build") {
             environment {
                 DB_HOST = credentials('192.168.10.22')
-                DB_DATABASE = credentials("laravel")
-                DB_USERNAME = credentials("dev")
-                DB_PASSWORD = credentials("Smartosc#123")
+                DB_DATABASE = credentials('laravel')
+                DB_USERNAME = credentials('dev')
+                DB_PASSWORD = credentials('Smartosc#123')
             }
             steps {
                 sh 'php --version'
