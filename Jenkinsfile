@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage("Build") {
             environment {
-                DB_HOST = credentials(192.168.10.22)
+                DB_HOST = credentials('192.168.10.22')
                 DB_DATABASE = credentials("laravel")
                 DB_USERNAME = credentials("dev")
                 DB_PASSWORD = credentials("Smartosc#123")
