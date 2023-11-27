@@ -1,31 +1,62 @@
 pipeline {
     agent any
+
+    environment {
+        // Define environment variables if needed
+        DOCKER_IMAGE = 'laravelsail/php80-composer:latest' // Adjust the image tag as per your Laravel Sail version
+    }
+
     stages {
-        stage("Build") {
-            environment {
-                DB_HOST = credentials('127.0.0.1')
-                DB_DATABASE = credentials("laravel")
-                DB_USERNAME = credentials("dev")
-                DB_PASSWORD = credentials("Smartosc#123")
-            }
+        stage('Checkout') {
             steps {
-                sh 'php --version'
-                sh 'composer install'
-                sh 'composer --version'
-                sh 'cp .env.example .env'
-                sh 'echo DB_HOST=${DB_HOST} >> .env'
-                sh 'echo DB_USERNAME=${DB_USERNAME} >> .env'
-                sh 'echo DB_DATABASE=${DB_DATABASE} >> .env'
-                sh 'echo DB_PASSWORD=${DB_PASSWORD} >> .env'
-                sh 'php artisan key:generate'
-                sh 'cp .env .env.testing'
-                sh 'php artisan migrate'
+                checkout scm
             }
         }
-        stage("Unit test") {
+
+        stage('Build') {
             steps {
-                sh 'php artisan test'
+                script {
+                    // Use Laravel Sail to install dependencies and generate key
+                    sh 'sail composer install --ignore-platform-reqs'
+                    sh 'sail artisan key:generate'
+                }
             }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    // Run your Laravel tests
+                    sh 'sail artisan test'
+                }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                script {
+                    // Build and push Docker image
+                    docker.withRegistry('https://your-docker-registry', 'docker-credentials-id') {
+                        def customImage = docker.build("${DOCKER_IMAGE}")
+                        customImage.push()
+                    }
+
+                    // Deploy the application (e.g., push to a Kubernetes cluster)
+                    // Adjust this based on your deployment strategy
+                    sh 'kubectl apply -f your-kubernetes-manifest.yaml'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'CI/CD pipeline passed successfully!'
+        }
+
+        failure {
+            echo 'CI/CD pipeline failed!'
+            // Additional failure handling or notifications can be added here
         }
     }
 }
