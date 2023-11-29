@@ -13,6 +13,7 @@ pipeline
             steps{
                 echo "Hello, this is the first process"
                 sh 'cd /var/www/deploy-the'
+                sh 'sudo chmod -R 777 /var/www/deploy-the'
                 sh 'git pull https://github.com/luuthaituan/deploy-the.git main'
                 sh 'composer install && sudo -S docker-compose build'
             }
