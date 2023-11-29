@@ -15,5 +15,12 @@ pipeline
                 sh 'composer install && sudo -S docker-compose build'
             }
         }
+
+        stage('Deploy'){
+            steps{
+                echo "Hey, this is the second process, hope it will success"
+                sh 'sudo -S docker-compose up -d'
+            }
+        }
     }
 }
