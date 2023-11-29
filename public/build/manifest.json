@@ -1,0 +1,427 @@
+{
+  "VCardText.css": {
+    "file": "assets/VCardText-7a7ea15a.css",
+    "src": "VCardText.css"
+  },
+  "VDataTable.css": {
+    "file": "assets/VDataTable-65463c4a.css",
+    "src": "VDataTable.css"
+  },
+  "VDatePicker.css": {
+    "file": "assets/VDatePicker-dfad64ad.css",
+    "src": "VDatePicker.css"
+  },
+  "VDialog.css": {
+    "file": "assets/VDialog-b7e6490e.css",
+    "src": "VDialog.css"
+  },
+  "VGrid.css": {
+    "file": "assets/VGrid-58f30f37.css",
+    "src": "VGrid.css"
+  },
+  "VLayout.css": {
+    "file": "assets/VLayout-529df013.css",
+    "src": "VLayout.css"
+  },
+  "VOverlay.css": {
+    "file": "assets/VOverlay-38423e5c.css",
+    "src": "VOverlay.css"
+  },
+  "VSheet.css": {
+    "file": "assets/VSheet-db7c2a52.css",
+    "src": "VSheet.css"
+  },
+  "VTable.css": {
+    "file": "assets/VTable-da3a2463.css",
+    "src": "VTable.css"
+  },
+  "VTextField.css": {
+    "file": "assets/VTextField-87a6edc0.css",
+    "src": "VTextField.css"
+  },
+  "VToolbar.css": {
+    "file": "assets/VToolbar-2f153f94.css",
+    "src": "VToolbar.css"
+  },
+  "_VCardText-607b6d49.js": {
+    "css": [
+      "assets/VCardText-7a7ea15a.css"
+    ],
+    "file": "assets/VCardText-607b6d49.js",
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "_VDataTable-4fd23285.js": {
+    "css": [
+      "assets/VDataTable-65463c4a.css"
+    ],
+    "file": "assets/VDataTable-4fd23285.js",
+    "imports": [
+      "resources/js/app.js",
+      "_VDialog-8d2773cd.js",
+      "_index-f020c943.js",
+      "_VCardText-607b6d49.js",
+      "_VTable-f2ec0a87.js"
+    ]
+  },
+  "_VDatePicker-cb24c0a5.js": {
+    "css": [
+      "assets/VDatePicker-dfad64ad.css"
+    ],
+    "file": "assets/VDatePicker-cb24c0a5.js",
+    "imports": [
+      "resources/js/app.js",
+      "_index-f020c943.js",
+      "_VToolbar-0ee609f6.js",
+      "_VCardText-607b6d49.js",
+      "_VSheet-47f5f9ca.js",
+      "_VTextField-ca22b321.js"
+    ]
+  },
+  "_VDialog-8d2773cd.js": {
+    "css": [
+      "assets/VDialog-b7e6490e.css"
+    ],
+    "file": "assets/VDialog-8d2773cd.js",
+    "imports": [
+      "resources/js/app.js",
+      "_VTextField-ca22b321.js",
+      "_index-f020c943.js",
+      "_VOverlay-16edc02a.js",
+      "_VCardText-607b6d49.js"
+    ]
+  },
+  "_VForm-b2efb5c1.js": {
+    "file": "assets/VForm-b2efb5c1.js",
+    "imports": [
+      "resources/js/app.js",
+      "_VCardText-607b6d49.js",
+      "_VTextField-ca22b321.js",
+      "_index-f020c943.js"
+    ]
+  },
+  "_VLayout-1ff218be.js": {
+    "css": [
+      "assets/VLayout-529df013.css"
+    ],
+    "file": "assets/VLayout-1ff218be.js",
+    "imports": [
+      "resources/js/app.js",
+      "_VCardText-607b6d49.js"
+    ]
+  },
+  "_VOverlay-16edc02a.js": {
+    "css": [
+      "assets/VOverlay-38423e5c.css"
+    ],
+    "file": "assets/VOverlay-16edc02a.js",
+    "imports": [
+      "resources/js/app.js",
+      "_index-f020c943.js",
+      "_VCardText-607b6d49.js"
+    ]
+  },
+  "_VRow-89f5b98f.js": {
+    "css": [
+      "assets/VGrid-58f30f37.css"
+    ],
+    "file": "assets/VRow-89f5b98f.js",
+    "imports": [
+      "_VCardText-607b6d49.js",
+      "resources/js/app.js"
+    ]
+  },
+  "_VSheet-47f5f9ca.js": {
+    "css": [
+      "assets/VSheet-db7c2a52.css",
+      "assets/VGrid-58f30f37.css"
+    ],
+    "file": "assets/VSheet-47f5f9ca.js",
+    "imports": [
+      "_VCardText-607b6d49.js",
+      "resources/js/app.js"
+    ]
+  },
+  "_VTable-f2ec0a87.js": {
+    "css": [
+      "assets/VTable-da3a2463.css"
+    ],
+    "file": "assets/VTable-f2ec0a87.js",
+    "imports": [
+      "resources/js/app.js",
+      "_VCardText-607b6d49.js"
+    ]
+  },
+  "_VTextField-ca22b321.js": {
+    "css": [
+      "assets/VTextField-87a6edc0.css",
+      "assets/VGrid-58f30f37.css"
+    ],
+    "file": "assets/VTextField-ca22b321.js",
+    "imports": [
+      "resources/js/app.js",
+      "_VCardText-607b6d49.js",
+      "_index-f020c943.js"
+    ]
+  },
+  "_VToolbar-0ee609f6.js": {
+    "css": [
+      "assets/VToolbar-2f153f94.css",
+      "assets/VGrid-58f30f37.css"
+    ],
+    "file": "assets/VToolbar-0ee609f6.js",
+    "imports": [
+      "_VCardText-607b6d49.js",
+      "resources/js/app.js",
+      "_index-f020c943.js"
+    ]
+  },
+  "__plugin-vue_export-helper-c27b6911.js": {
+    "file": "assets/_plugin-vue_export-helper-c27b6911.js"
+  },
+  "_index-f020c943.js": {
+    "css": [
+      "assets/index-dc6614b2.css"
+    ],
+    "file": "assets/index-f020c943.js",
+    "imports": [
+      "resources/js/app.js",
+      "_VCardText-607b6d49.js"
+    ]
+  },
+  "_sha256-eeca3972.js": {
+    "file": "assets/sha256-eeca3972.js",
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
+  "index.css": {
+    "file": "assets/index-dc6614b2.css",
+    "src": "index.css"
+  },
+  "node_modules/@mdi/font/fonts/materialdesignicons-webfont.eot": {
+    "file": "assets/materialdesignicons-webfont-5159a347.eot",
+    "src": "node_modules/@mdi/font/fonts/materialdesignicons-webfont.eot"
+  },
+  "node_modules/@mdi/font/fonts/materialdesignicons-webfont.ttf": {
+    "file": "assets/materialdesignicons-webfont-be825c12.ttf",
+    "src": "node_modules/@mdi/font/fonts/materialdesignicons-webfont.ttf"
+  },
+  "node_modules/@mdi/font/fonts/materialdesignicons-webfont.woff": {
+    "file": "assets/materialdesignicons-webfont-28c8f97f.woff",
+    "src": "node_modules/@mdi/font/fonts/materialdesignicons-webfont.woff"
+  },
+  "node_modules/@mdi/font/fonts/materialdesignicons-webfont.woff2": {
+    "file": "assets/materialdesignicons-webfont-31010194.woff2",
+    "src": "node_modules/@mdi/font/fonts/materialdesignicons-webfont.woff2"
+  },
+  "resources/js/app.css": {
+    "file": "assets/app-2d866084.css",
+    "src": "resources/js/app.css"
+  },
+  "resources/js/app.js": {
+    "assets": [
+      "assets/materialdesignicons-webfont-5159a347.eot",
+      "assets/materialdesignicons-webfont-31010194.woff2",
+      "assets/materialdesignicons-webfont-28c8f97f.woff",
+      "assets/materialdesignicons-webfont-be825c12.ttf"
+    ],
+    "css": [
+      "assets/app-2d866084.css",
+      "assets/app-ab112738.css"
+    ],
+    "dynamicImports": [
+      "resources/js/components/Login.vue",
+      "resources/js/components/Register.vue",
+      "resources/js/components/layouts/Default.vue",
+      "resources/js/components/Dashboard.vue",
+      "resources/js/components/Projects.vue",
+      "resources/js/components/Project.vue",
+      "resources/js/components/Resources.vue",
+      "resources/js/components/Holidays.vue"
+    ],
+    "file": "assets/app-96326f91.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/js/components/Dashboard.vue": {
+    "css": [
+      "assets/app-ab112738.css",
+      "assets/VGrid-58f30f37.css"
+    ],
+    "file": "assets/Dashboard-2c917a2b.js",
+    "imports": [
+      "resources/js/app.js",
+      "__plugin-vue_export-helper-c27b6911.js",
+      "_VLayout-1ff218be.js",
+      "_VSheet-47f5f9ca.js",
+      "_VCardText-607b6d49.js",
+      "_VTable-f2ec0a87.js",
+      "_VRow-89f5b98f.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/components/Dashboard.vue"
+  },
+  "resources/js/components/Holidays.css": {
+    "file": "assets/Holidays-4e21ca29.css",
+    "src": "resources/js/components/Holidays.css"
+  },
+  "resources/js/components/Holidays.vue": {
+    "css": [
+      "assets/Holidays-4e21ca29.css",
+      "assets/VGrid-58f30f37.css",
+      "assets/app-ab112738.css"
+    ],
+    "file": "assets/Holidays-110acd6c.js",
+    "imports": [
+      "_VToolbar-0ee609f6.js",
+      "resources/js/app.js",
+      "__plugin-vue_export-helper-c27b6911.js",
+      "_VRow-89f5b98f.js",
+      "_index-f020c943.js",
+      "_VSheet-47f5f9ca.js",
+      "_VCardText-607b6d49.js",
+      "_VDatePicker-cb24c0a5.js",
+      "_VTextField-ca22b321.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/components/Holidays.vue"
+  },
+  "resources/js/components/Login.css": {
+    "file": "assets/Login-093aaf4b.css",
+    "src": "resources/js/components/Login.css"
+  },
+  "resources/js/components/Login.vue": {
+    "css": [
+      "assets/Login-093aaf4b.css",
+      "assets/app-ab112738.css",
+      "assets/VGrid-58f30f37.css"
+    ],
+    "file": "assets/Login-00930e65.js",
+    "imports": [
+      "resources/js/app.js",
+      "__plugin-vue_export-helper-c27b6911.js",
+      "_VTextField-ca22b321.js",
+      "_VLayout-1ff218be.js",
+      "_index-f020c943.js",
+      "_VCardText-607b6d49.js",
+      "_VForm-b2efb5c1.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/components/Login.vue"
+  },
+  "resources/js/components/Project.css": {
+    "file": "assets/Project-e67e6cee.css",
+    "src": "resources/js/components/Project.css"
+  },
+  "resources/js/components/Project.vue": {
+    "css": [
+      "assets/Project-e67e6cee.css",
+      "assets/app-ab112738.css",
+      "assets/VGrid-58f30f37.css"
+    ],
+    "file": "assets/Project-7173b3e5.js",
+    "imports": [
+      "resources/js/app.js",
+      "_sha256-eeca3972.js",
+      "_VToolbar-0ee609f6.js",
+      "__plugin-vue_export-helper-c27b6911.js",
+      "_VRow-89f5b98f.js",
+      "_index-f020c943.js",
+      "_VOverlay-16edc02a.js",
+      "_VTextField-ca22b321.js",
+      "_VCardText-607b6d49.js",
+      "_VForm-b2efb5c1.js",
+      "_VDialog-8d2773cd.js",
+      "_VDatePicker-cb24c0a5.js",
+      "_VSheet-47f5f9ca.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/components/Project.vue"
+  },
+  "resources/js/components/Projects.vue": {
+    "css": [
+      "assets/VGrid-58f30f37.css",
+      "assets/app-ab112738.css"
+    ],
+    "file": "assets/Projects-11286c79.js",
+    "imports": [
+      "_VToolbar-0ee609f6.js",
+      "resources/js/app.js",
+      "__plugin-vue_export-helper-c27b6911.js",
+      "_index-f020c943.js",
+      "_VTextField-ca22b321.js",
+      "_VCardText-607b6d49.js",
+      "_VDataTable-4fd23285.js",
+      "_VDialog-8d2773cd.js",
+      "_VRow-89f5b98f.js",
+      "_VTable-f2ec0a87.js",
+      "_VOverlay-16edc02a.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/components/Projects.vue"
+  },
+  "resources/js/components/Register.vue": {
+    "css": [
+      "assets/app-ab112738.css"
+    ],
+    "file": "assets/Register-ed931977.js",
+    "imports": [
+      "resources/js/app.js",
+      "__plugin-vue_export-helper-c27b6911.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/components/Register.vue"
+  },
+  "resources/js/components/Resources.vue": {
+    "css": [
+      "assets/VGrid-58f30f37.css",
+      "assets/app-ab112738.css"
+    ],
+    "file": "assets/Resources-2dff4adb.js",
+    "imports": [
+      "_VToolbar-0ee609f6.js",
+      "resources/js/app.js",
+      "__plugin-vue_export-helper-c27b6911.js",
+      "_index-f020c943.js",
+      "_VTextField-ca22b321.js",
+      "_VCardText-607b6d49.js",
+      "_VDataTable-4fd23285.js",
+      "_VDialog-8d2773cd.js",
+      "_VForm-b2efb5c1.js",
+      "_VRow-89f5b98f.js",
+      "_VTable-f2ec0a87.js",
+      "_VOverlay-16edc02a.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/components/Resources.vue"
+  },
+  "resources/js/components/layouts/Default.css": {
+    "file": "assets/Default-9138003d.css",
+    "src": "resources/js/components/layouts/Default.css"
+  },
+  "resources/js/components/layouts/Default.vue": {
+    "css": [
+      "assets/Default-9138003d.css",
+      "assets/app-ab112738.css"
+    ],
+    "file": "assets/Default-8141cc8e.js",
+    "imports": [
+      "resources/js/app.js",
+      "_sha256-eeca3972.js",
+      "__plugin-vue_export-helper-c27b6911.js",
+      "_index-f020c943.js",
+      "_VCardText-607b6d49.js",
+      "_VLayout-1ff218be.js",
+      "_VOverlay-16edc02a.js"
+    ],
+    "isDynamicEntry": true,
+    "src": "resources/js/components/layouts/Default.vue"
+  },
+  "resources/sass/app.scss": {
+    "file": "assets/app-ab112738.css",
+    "isEntry": true,
+    "src": "resources/sass/app.scss"
+  }
+}
