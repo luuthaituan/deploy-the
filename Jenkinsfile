@@ -8,12 +8,11 @@ pipeline
                 checkout scm
             }
         }
-        
+
         stage('Build'){
             steps{
                 echo "Hello, this is the first process"
-                sh 'source .env'
-                sh 'sudo -S docker-compose build'
+                sh '. .env && sudo -S docker-compose build'
             }
         }
     }
