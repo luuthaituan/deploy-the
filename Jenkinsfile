@@ -2,15 +2,13 @@ pipeline
 {
     agent any
 
-        stages {
-        stage('Checkout SCM') {
-            steps {
+    stages{
+        stage('Checkout SCM'){
+                        steps {
                 checkout scm
             }
         }
-        }
-
-    stages{
+        
         stage('Build'){
             steps{
                 echo "Hello, this is the first process"
