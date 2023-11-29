@@ -19,7 +19,7 @@ pipeline
         stage('Deploy'){
             steps{
                 echo "Hey, this is the second process, hope it will success"
-                sh 'sudo -S docker-compose down'
+                sh 'sudo -S docker-compose up -d && ifconfig'
             }
         }
     }
