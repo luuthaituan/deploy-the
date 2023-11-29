@@ -24,7 +24,6 @@ pipeline
                 echo "Hey, this is the second process, hope it will success"
                 sh 'cd /var/www/deploy-the'
                 sh 'sudo -S docker-compose up -d && sudo docker-compose ps'
-                sh 'sudo docker-compose down'
             }
         }
     }
