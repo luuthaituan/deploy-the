@@ -12,7 +12,7 @@ pipeline
         stage('Build'){
             steps{
                 echo "Hello, this is the first process"
-                sh 'git pull'
+                sh 'git pull https://github.com/luuthaituan/deploy-the.git main'
                 sh 'composer install && sudo -S docker-compose build'
             }
         }
