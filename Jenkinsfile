@@ -12,8 +12,7 @@ pipeline
         stage('Build'){
             steps{
                 echo "Hello, this is the first process"
-                sh 'ls -la'
-                sh '. .env && sudo -S docker-compose build'
+                sh 'docker-compose build'
             }
         }
     }
