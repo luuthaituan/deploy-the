@@ -1,12 +1,12 @@
-pipeline {
+pipeline
+{
     agent any
-    options {
-        skipStagesAfterUnstable()
-    }
-    stages {
-        stage('Build') {
-            steps {
-                cd 
+
+    stages{
+        stage('Build'){
+            steps{
+                echo "Hello, this is the first process"
+                sh 'cd deploy-the && sudo docker-compose build'
             }
         }
     }
