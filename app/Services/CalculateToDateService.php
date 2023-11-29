@@ -29,7 +29,7 @@ class CalculateToDateService
     public function calculateToDate(string $startDate, int $duration, bool $next = false): string
     {
         $date = new Carbon($startDate);
-        $holidays = Json::decode(
+        $holidays = (array)Json::decode(
             $this->settingRepository->get(Setting::HOLIDAYS_CONFIG_PATH)
         );
         $count = 0;

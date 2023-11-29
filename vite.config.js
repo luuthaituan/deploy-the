@@ -29,9 +29,6 @@ export default defineConfig({
             vue: 'vue/dist/vue.esm-bundler.js',
         },
     },
-    server: { 
-	host: '192.168.10.22', 
-    },
     optimizeDeps: {
         exclude: ['svelte-gantt']
     }

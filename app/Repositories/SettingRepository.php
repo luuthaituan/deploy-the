@@ -21,7 +21,7 @@ class SettingRepository implements SettingRepositoryInterface
      */
     public function get(string $path, string $scope = Setting::SCOPE_DEFAULT, int $scope_id = 0): string
     {
-        return $this->find($path, $scope, $scope_id)->value;
+        return (string)$this->find($path, $scope, $scope_id)?->value;
     }
 
     /**

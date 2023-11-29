@@ -83,8 +83,10 @@ class TaskController extends Controller
         $client = new Client();
         $tasks = Task::where('project_id', $projectId)
             ->whereNotNull('jira_id')
-            ->whereNull('status')
-            ->orWhereNotIn('status', Task::DONE_STATUSES)
+            ->where(function($query) {
+                $query->whereNull('status')
+                    ->orWhereNotIn('status', Task::DONE_STATUSES);
+            })
             ->get()
         ;
 
@@ -102,11 +104,9 @@ class TaskController extends Controller
 
                 $response = $request->getBody()->getContents();
                 $status = Arr::get(json_decode($response, true), 'fields.status.name');
-//                $progress = Arr::get(json_decode($response, true), 'fields.progress.percent');
                 $task->status = $status;
-//                $task->progress = $progress;
                 $task->save();
-                $data[$task->id] = $task->with(['assignees'])->find($task->id);
+                $data[$task->id] = $task->with(['children.assignees'])->find($task->id);
             } catch (\Exception) {
                 continue;
             }

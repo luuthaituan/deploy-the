@@ -25,12 +25,12 @@ class TaskRepository implements TaskRepositoryInterface
     {
         $data = $this->prepare($data);
         $projectId = $data['project_id'];
-        $previousChildren = [];
+        $task = new Task();
+        $previousChildren = $task->newCollection();
         $children = [];
 
         try {
             DB::beginTransaction();
-            $task = new Task();
             if (isset($data['id']) && $data['id']) {
                 $task = $this->find($data['id']);
                 $previousChildren = $task->children()->get();
