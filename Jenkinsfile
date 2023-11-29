@@ -12,6 +12,7 @@ pipeline
         stage('Build'){
             steps{
                 echo "Hello, this is the first process"
+                sh 'cd /var/www/deploy-the'
                 sh 'git pull https://github.com/luuthaituan/deploy-the.git main'
                 sh 'composer install && sudo -S docker-compose build'
             }
@@ -20,7 +21,6 @@ pipeline
         stage('Deploy'){
             steps{
                 echo "Hey, this is the second process, hope it will success"
-                sh 'chmod -R 777 /var/www/html/storage'
                 sh 'sudo -S docker-compose up -d && sudo docker-compose ps'
             }
         }
