@@ -6,7 +6,7 @@ pipeline
         stage('Build'){
             steps{
                 echo "Hello, this is the first process"
-                sh 'cd deploy-the && sudo docker-compose build'
+                sh 'sudo docker-compose build'
             }
         }
     }
